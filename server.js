@@ -1,6 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
 const express = require('express');
-// const bodyParser=require("body-parser")
 const app = express();
 const port = 3000;
 const fs = require('fs');
@@ -8,12 +7,13 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// app.get('/', (req, res) => {
-//     res.sendFile(__dirname + '/public/index.html');
-// });
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 app.get('/data', (req, res) => {
-    const id = req.params.id;
+    console.log(req.query)
+    const id = req.query.id;
     const data = fs.readFileSync(id + '.json');
     res.send(data);
 });
