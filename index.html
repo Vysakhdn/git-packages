@@ -45,104 +45,14 @@
         <label for="detailsCheckbox"><b>I accept all the terms and conditions.</b></label><span style="color: red !important; display: inline; float: none;">*</span><br><br>
     
     <input type="submit" id="submit" value="Submit">
-    <input type="button" id="view" onclick="func()" value="View">
+    <input type="button" id="view"  value="View">
   </form>
-    <!-- <script>
-        const requiredFields = [
-            document.getElementById('name'),
-            document.getElementById('phone'),
-            document.getElementById('detailsCheckbox')
-        ];
+  <div id="value"></div>
 
-        const selfDeclarationCheckbox = document.getElementById('detailsCheckbox');
-        const submit = document.getElementById('submit');
-
-        // requiredFields.forEach(field => {
-        //     field.addEventListener('input', () => {
-        //         const allFieldsFilled = requiredFields.every(field => field.value.trim() !== '');
-        //         selfDeclarationCheckbox.disabled = !allFieldsFilled;
-        //         submit.disabled = !allFieldsFilled;
-        //     });
-        // });
-
-        const phoneField = document.getElementById('phone');
-        phoneField.addEventListener('input', () => {
-            phoneField.value = phoneField.value.replace(/[^0-9]/g, '');
-        });
-
-        const form = document.getElementById('myform');
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-            let formData = new FormData(this);
-            let object = {};
-            formData.forEach((value, key) => {
-                object[key] = value;
-            });
-            let json = JSON.stringify(object);
-            console.log(json);
-        }, false);
-
-        function func() {
-            alert("Your form has been submitted successfully.");
-            document.getElementById("myform");
-        }
-    </script> -->
 <script>
         
 let userID;
-// document.addEventListener("DOMContentLoaded", function() {
-//     const form = document.querySelector("form");
-  
-//     form.addEventListener("submit", function(event) {
-//       event.preventDefault(); 
-  
-//       const formData = new FormData(form);
-//       const formDataObject = {};
-//       formData.forEach((value, key) => {
-//         formDataObject[key] = value;
-//       });
-//       fetch("http://localhost:3000/submit", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(formDataObject)
-//       })
-//         .then(response => response.json())
-//         .then(data => {
-//           console.log("Response Data:", data);
-//           textContent=JSON.stringify(data,null,2)
-//           userID = data.id
-//         })
-//         .catch(error => {
-//           console.error("Error:", error);
-//         });
-//     });
-//     document.addEventListener("DOMContentLoaded", function() {
-//   // ... Your form submission code ...
 
-//   // Add a button or trigger to initiate the GET request
-//   const getDataButton = document.getElementById("get-data-button"); // Replace with the actual ID of your button
-//   getDataButton.addEventListener("click", function() {
-//     // Make a GET request
-//     fetch("http://localhost:3000/getData", {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json"
-//       }
-//     })
-//       .then(response => response.json())
-//       .then(data => {
-//         console.log("GET Response Data:", data);
-//         // Process and use the data as needed
-//       })
-//       .catch(error => {
-//         console.error("Error:", error);
-//       });
-//   });
-// });
-
-//   });
 document.addEventListener("DOMContentLoaded", function() {
   const form = document.querySelector("form");
 
@@ -154,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
     formData.forEach((value, key) => {
       formDataObject[key] = value;
     });
-    fetch("http://localhost:3000/submit", {
+    fetch("https://retoolapi.dev/PntogR/data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -164,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(response => response.json())
       .then(data => {
         console.log("Response Data:", data);
+        userID = data.id;
       })
       .catch(error => {
         console.error("Error:", error);
@@ -171,21 +82,35 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-function func() {
-  fetch("http://localhost:3000/getData", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log("GET Response Data:", data);
-    })
-    .catch(error => {
-      console.error("Error:", error);
-    });
-}
+// function func() {
+//   fetch("http://localhost:3000/getData", {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json"
+//     }
+//   })
+//     .then(response => response.json())
+//     .then(data => {
+//       console.log("GET Response Data:", data);
+//     })
+//     .catch(error => {
+//       console.error("Error:", error);
+//     });
+// }
+let value = document.getElementById("value");
+view.addEventListener("click", function() {
+  console.log(value);
+ fetch("https://retoolapi.dev/PntogR/data")
+ .then(response => response.json())
+ .then(data => {
+ const submittedData = data[userID-1];
+ value.textContent = JSON.stringify(submittedData);
+     })
+   .catch(error => {
+   console.error("Error:", error);
+   
+  });
+ });
 
 
 </script>
